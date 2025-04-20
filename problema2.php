@@ -25,13 +25,16 @@
             //fórmula para el calculo
             $suma = ($lim * ($lim+1))/2;
             
-
+            //para mostrar en el html
+            $formu= "Suma = n(n + 1)/2";
+            $formuSust= "Suma = $lim($lim + 1)/2";
     
             ?>
     <div class="respuesta-suma">
         <?php
         echo "<p>Calculando la suma de los número del 1 al 1000:</p>";
-        echo "<p class='resultado-ok'>$suma</p>";
+        echo "<p>Utilizamos esta fórmula: <strong>$formu</strong></p>";
+        echo "<p class='resultado-ok'>$formuSust</p>";
         echo "<p class='resultado-ok'>El resultado de la suma es: <strong>$suma</strong></p>";
         ?>
     </div>
