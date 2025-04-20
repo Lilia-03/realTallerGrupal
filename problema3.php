@@ -32,12 +32,12 @@
                     $texto .= $par;
                 }
             }
-            ?>
+        ?>
     <div class="respuesta-suma">
         <?php
         echo "<p>Estamos sumando los primeros 10 números pares:</p>";
         echo "<p class='resultado-ok'>$texto</p>";
-        echo "<p class='resultado-ok'>El resultado de la suma es: <strong>$suma</strong></p>";
+        echo "<p class='resultado-suma'><strong>El resultado de la suma es: <span class='resultado-media'>$suma</span></strong></p>";
         ?>
     </div>
 

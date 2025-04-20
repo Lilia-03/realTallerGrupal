@@ -24,7 +24,7 @@
             <?php
                 for ($i = 1; $i <= 15; $i++) {
                     $potencia = pow(4, $i);
-                    echo "<p><strong>4<sup>$i</sup></strong> = $potencia</p>";
+                    echo "<p><strong>4<sup>$i</sup></strong> = <span class='resultado-media'>$potencia</span></p>";
                 }
             ?>
         </div>

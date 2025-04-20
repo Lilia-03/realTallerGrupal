@@ -1,3 +1,7 @@
+<?php
+include_once("validaciones.php");
+?>
+
 <!-- problema 1 -->
 <html>
 <head>
@@ -18,11 +22,11 @@
     </a>
 
     <div class="contenedor centrar">
+    <div class="caja-datos">
         <form action="" method="post" class="formulario-media">
             <h2>Introduce 5 números positivos</h2>
 
             <?php
-                // Mostramos los campos de los 5 números
                 for ($i = 1; $i <= 5; $i++) {
                     echo "<input type='text' name='num$i' required placeholder='Número $i' class='input-numero'><br>";
                 }
@@ -30,56 +34,43 @@
             <br>
             <button type="submit" class="boton-accion">Calcular Media</button>
         </form>
+    </div>
 
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $suma = 0;
             $valido = true;
-            $mensajes_error = [];
+            $numeros = [];
 
-            // Validación de los números introducidos
             for ($i = 1; $i <= 5; $i++) {
-                // Recogemos el valor del campo
                 $num = $_POST["num$i"];
 
-                // Validamos que el campo no esté vacío
-                if (empty($num)) {
-                    $mensajes_error[] = "El campo Número $i no puede estar vacío.";
+                if (
+                    !Validador::esVacio($num, "Número $i") ||
+                    !Validador::esNumero($num, "Número $i") ||
+                    !Validador::esPositivo($num, "Número $i")
+                ) {
                     $valido = false;
                     continue;
                 }
 
-                // Validamos que no sea un número negativo
-                if ($num < 0) {
-                    $mensajes_error[] = "El número $i no puede ser negativo.";
-                    $valido = false;
-                    continue;
-                }
-
-                // Validamos que sea un número (no letras ni caracteres no permitidos)
-                if (!is_numeric($num)) {
-                    $mensajes_error[] = "El campo Número $i debe contener solo números.";
-                    $valido = false;
-                    continue;
-                }
-
-                // Si pasa todas las validaciones, sumamos el número
                 $suma += $num;
+                $numeros[] = $num;
             }
 
-            // Si los datos son válidos, calculamos la media
             if ($valido) {
-                $media = $suma / 5;
-                echo "<p class='resultado-ok'>La media de los números es: $media</p>";
-            } else {
-                // Mostramos los errores
-                foreach ($mensajes_error as $mensaje) {
-                    echo "<p class='resultado-error'>$mensaje</p>";
+                $media = round($suma / 5, 2);
+                echo "<div class='respuesta-suma'>";
+                echo "<h4><strong>Datos Ingresados</strong></h4>";
+                foreach ($numeros as $index => $valor) {
+                    $n = $index + 1;
+                    echo "<p><strong>Número $n:</strong> $valor</p>";
                 }
+                echo "<p><strong>Media de los números:</strong> <span class='resultado-media'>$media</span></p>";
+                echo "</div>";
             }
         }
         ?>
-        
     </div>
 
     <footer>

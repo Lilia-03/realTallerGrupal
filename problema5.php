@@ -1,3 +1,4 @@
+<?php include_once("validaciones.php"); ?>
 <!-- problema 5 -->
 <html>
 <head>
@@ -22,9 +23,8 @@
             <h2>Introduce las edades de 5 personas</h2>
 
             <?php
-                // Mostrar los campos para las edades
                 for ($i = 1; $i <= 5; $i++) {
-                    echo "<input type='text' name='edad$i' value='" . (isset($_POST["edad$i"]) ? $_POST["edad$i"] : '') . "' required placeholder='Edad de la persona $i' class='input-numero'><br>";
+                    echo "<input type='text' name='edad$i' required placeholder='Edad de la persona $i' class='input-numero'><br>";
                 }
             ?>
 
@@ -34,67 +34,55 @@
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $valido = true;
-            $mensajes_error = [];
             $clasificacion = [];
 
-            for ($i = 1; $i <= 5; $i++) {
-                $edad = $_POST["edad$i"];
+                for ($i = 1; $i <= 5; $i++) {
+                    $edad = $_POST["edad$i"];
 
-                // Validamos que el campo no esté vacío
-                if (empty($edad)) {
-                    $mensajes_error[] = "El campo para la persona $i no puede estar vacío.";
-                    $valido = false;
-                    continue;
+                    if (!Validador::esVacio($edad, "Edad de la persona $i")) {
+                        $valido = false;
+                        continue;
+                    }
+
+                    if (!Validador::esNumero($edad, "Edad de la persona $i")) {
+                        $valido = false;
+                        continue;
+                    }
+
+                    if ($edad < 0) {
+                        echo "<p class='resultado-error'>Edad de la persona $i no válida. Debe ser un número mayor o igual a 0.</p>";
+                        $valido = false;
+                        continue;
+                    }
+
+                    // Clasificación
+                    if ($edad <= 12) {
+                        $clasificacion[] = "<span class='media-negro'>Persona $i: Niño (Edad: $edad)</span>";
+                    } elseif ($edad <= 17) {
+                        $clasificacion[] = "<span class='media-negro'>Persona $i: Adolescente (Edad: $edad)</span>";
+                    } elseif ($edad <= 64) {
+                        $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto (Edad: $edad)</span>";
+                    } else {
+                        $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto Mayor (Edad: $edad)</span>";
+                    }
                 }
 
-                // Validamos que sea un número
-                if (!is_numeric($edad)) {
-                    $mensajes_error[] = "La edad de la persona $i debe ser un número.";
-                    $valido = false;
-                    continue;
-                }
 
-                // Validamos que no sea un número negativo ni cero
-                if ($edad <= 0) {
-                    $mensajes_error[] = "La edad de la persona $i no puede ser negativa ni cero.";
-                    $valido = false;
-                    continue;
-                }
-
-                // Clasificación según la edad
-                if ($edad <= 12) {
-                    $clasificacion[] = "Persona $i (Edad: $edad): Niño (0-12 años)";
-                } elseif ($edad <= 17) {
-                    $clasificacion[] = "Persona $i (Edad: $edad): Adolescente (13-17 años)";
-                } elseif ($edad <= 64) {
-                    $clasificacion[] = "Persona $i (Edad: $edad): Adulto (18-64 años)";
-                } else {
-                    $clasificacion[] = "Persona $i (Edad: $edad): Adulto Mayor (65+ años)";
-                }
-            }
-
-            // Mostrar los errores si los hay
-            if (!$valido) {
-                foreach ($mensajes_error as $mensaje) {
-                    echo "<p class='resultado-error'>$mensaje</p>";
-                }
-            } else {
-                // Mostrar las clasificaciones con las edades ingresadas
-                echo "<h3>Clasificación de edades:</h3>";
+            if ($valido) {
+                echo "<div class='respuesta-suma'>";
+                echo "<h4><strong>Clasificación de Edades</strong></h4>";
                 foreach ($clasificacion as $clas) {
-                    echo "<p class='resultado-ok'>$clas</p>";
+                    echo "<p>$clas</p>";
                 }
+                echo "</div>";
             }
         }
         ?>
-
     </div>
 
     <footer>
         © 2025 Grupo: 1GS131 | Realizado por Liliana Coronado y Mónica Serrano <br>
-        <?php 
-        echo "Fecha: " . date("d")." / ".date("m"). " / ".date("Y");
-        ?>
+        <?php echo "Fecha: " . date("d")." / ".date("m"). " / ".date("Y"); ?>
     </footer>
 
 </body>
