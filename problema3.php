@@ -19,8 +19,8 @@
 
     <div class="contenedor centrar">
         <?php
-            $suma = 0;
-            $texto = "";
+            $suma = 0; //guarda la suma de los números
+            $texto = "";//guarda los números pares escritos en texto
 
             for ($i = 1; $i <= 10; $i++) {
                 $par = $i * 2;
