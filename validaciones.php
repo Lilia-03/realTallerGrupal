@@ -25,6 +25,15 @@ class Validador {
         }
         return true;
     }
+
+    public static function esFecha($valor, $nombreCampo) {
+        $fecha = DateTime::createFromFormat('Y-m-d', $valor);
+        if (!$fecha || $fecha->format('Y-m-d') !== $valor) {
+            echo "<p class='resultado-error'>El campo $nombreCampo debe ser una fecha válida (YYYY-MM-DD).</p>";
+            return false;
+        }
+        return true;
+    }
 }
 
 ?>
