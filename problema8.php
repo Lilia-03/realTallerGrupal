@@ -27,7 +27,7 @@
                 <input type="date" name="fecha" id="fecha" required placeholder="Ingrese una fecha (YYYY-MM-DD)">
                 <br> <br>
                 <br>
-                <input type="submit" name="Identificar" id="identificar" class="boton-accion" >
+                <button type="submit" name="Identificar" id="identificar" class="boton-accion" >Identificar</button>
             </form>
         </div>
 
