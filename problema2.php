@@ -32,10 +32,10 @@
             ?>
     <div class="respuesta-suma">
         <?php
-        echo "<p>Calculando la suma de los número del 1 al 1000:</p>";
+        echo "<h3><strong>Calculando la Suma de los Número del 1 al 1000:</h3></strong>";
         echo "<p>Utilizamos esta fórmula: <strong>$formu</strong></p>";
         echo "<p class='resultado-ok'>$formuSust</p>";
-        echo "<p class='resultado-ok'>El resultado de la suma es: <strong>$suma</strong></p>";
+        echo "<p class='resultado-media'>El resultado de la suma es: <strong>$suma</strong></p>";
         ?>
     </div>
 
