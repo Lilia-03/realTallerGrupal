@@ -1,3 +1,4 @@
+<?php include_once("validaciones.php"); ?>
 <!-- problema 7 -->
 <html>
 <head>
@@ -53,9 +54,9 @@
 
             foreach ($notas as $i => $nota) {
                 $num = trim($nota);
-                if (empty($num)) {
+                if (!Validador::esVacio($num, "Nota " . ($i + 1))) {
                     $errores[] = "La Nota " . ($i + 1) . " no puede estar vacía.";
-                } elseif (!is_numeric($num)) {
+                } elseif (!Validador::esNumero($num, "Nota " . ($i + 1))) {
                     $errores[] = "La Nota " . ($i + 1) . " debe ser un número válido.";
                 } elseif ($num < 0) {
                     $errores[] = "La Nota " . ($i + 1) . " no puede ser negativa.";
