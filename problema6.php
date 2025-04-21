@@ -27,7 +27,7 @@
                     <br>
                     <br>
                     <br>
-                <input type="submit" name= "Calcular" id = "calcular" class = "boton-accion"x>
+                <button type="submit" name= "Calcular" id = "calcular" class = "boton-accion">Calcular</button>
             </form>
         </div>  
 
