@@ -23,7 +23,7 @@
             <p>Estas son las primeras 15 potencias de 4:</p>
             <?php
                 for ($i = 1; $i <= 15; $i++) {
-                    $potencia = pow(4, $i);
+                    $potencia = pow(4, $i); //usamos la función pow para sacar las potencias de 4
                     echo "<p><strong>4<sup>$i</sup></strong> = <span class='resultado-media'>$potencia</span></p>";
                 }
             ?>
