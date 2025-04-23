@@ -1,7 +1,6 @@
 <!-- problema 6 -->
-<?php
-    <?php include_once("logica/validaciones.php");  //para utilizar funciones de validación
-    ?>
+<?php include_once("logica/validaciones.php");  //para utilizar funciones de validación?>
+<?php include_once("logica/logica_p6.php");  //clase con los procesos logicos?>
 <html>
 <head>
     <title>Problema #6 - Distribución de Presupuesto </title>
@@ -23,6 +22,7 @@
     <div class="contenedor centrar">
         <div class="respuesta-suma">
             <form method= "post">
+                <h2>Distribuir Presupuesto por Departamento</h2>
                     Ingrese el Presupuesto:
                     <input type="number" name="presupuesto" id ="presupueesto" require>
                     <br>
@@ -48,21 +48,20 @@
 
                 if($valido){
                     //proceso luego de validaciones
-                    $gine = $presupuesto * 0.40;
-                    $trauma = $presupuesto * 0.35;
-                    $pedi = $presupuesto * 0.25; 
+                    $distribucion =  DistribucionPresupuesto::calcularDistribucion($presupuesto);
                     
                     echo "<div class='respuesta-suma'>
                     <h3>Distribución del Presupuesto:</h3>
                     <p><strong>Presupuesto Ingresado: </strong>" . number_format($presupuesto, 2) . "</p>
-                    <hr>
-                    <p><strong>Ginecología (40%): </strong>" . number_format($gine, 2) . "</p>
-                    <p><strong>Traumatología (35%): </strong>" . number_format($trauma, 2) . "</p>
-                    <p><strong>Pediatría (25%): </strong>" . number_format($pedi, 2) . "</p>
-                </div>";
+                    <hr>";
+                    
+                    //Ciclo para mostrar la distribucion que esta almacenada en el arreglo
+                    foreach ($distribucion as $departamento => $monto) {
+                        echo "<p><strong>$departamento: </strong>" . number_format($monto, 2) . "</p>";
 
                 }
-            
+                echo "</div>";
+            }
         }
 
     ?> 
