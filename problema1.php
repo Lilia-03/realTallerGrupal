@@ -23,27 +23,29 @@ include_once("validaciones.php");
 
     <div class="contenedor centrar">
     <div class="caja-datos">
+        <!--Formulario con 5 campos de entrada-->
         <form action="" method="post" class="formulario-media">
             <h2>Introduce 5 números positivos</h2>
-
-            <?php
+            <?php //ciclo para los 5 campos
                 for ($i = 1; $i <= 5; $i++) {
                     echo "<input type='text' name='num$i' required placeholder='Número $i' class='input-numero'><br>";
                 }
             ?>
             <br>
+            <!--Botón para mandar los campos-->
             <button type="submit" class="boton-accion">Calcular Media</button>
         </form>
     </div>
 
+        <!--Proceso en php para enviar el formulario-->
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $suma = 0;
-            $valido = true;
-            $numeros = [];
+            $suma = 0; //almacena la suma total de los 5 números
+            $valido = true; //indica si los números pasaron las validaciones
+            $numeros = []; //arreglo vacío en el que se guardan los números válidos que ingresen los usuarios
 
             for ($i = 1; $i <= 5; $i++) {
-                $num = $_POST["num$i"];
+                $num = $_POST["num$i"]; //accede a los valores enviados por el formulario y guarda su valor en num
 
                 if (
                     !Validador::esVacio($num, "Número $i") ||
@@ -59,7 +61,7 @@ include_once("validaciones.php");
             }
 
             if ($valido) {
-                $media = round($suma / 5, 2);
+                $media = round($suma / 5, 2); //redondea a 2 decimales
                 echo "<div class='respuesta-suma'>";
                 echo "<h4><strong>Datos Ingresados</strong></h4>";
                 foreach ($numeros as $index => $valor) {
