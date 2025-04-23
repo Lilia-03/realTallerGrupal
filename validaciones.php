@@ -3,7 +3,7 @@
 class Validador {
 
     public static function esVacio($valor, $nombreCampo) {
-        if (empty(trim($valor))) {
+        if (trim($valor) === '') {
             echo "<p class='resultado-error'>El campo $nombreCampo no puede estar vacío.</p>";
             return false;
         }
@@ -21,6 +21,14 @@ class Validador {
     public static function esPositivo($valor, $nombreCampo) {
         if ($valor < 0) {
             echo "<p class='resultado-error'>El número en $nombreCampo debe ser mayor o igual que 0.</p>";
+            return false;
+        }
+        return true;
+    }
+
+    public static function esEdadValida($valor, $nombreCampo) {
+        if ($valor < 0 || $valor > 100) {
+            echo "<p class='resultado-error'>La edad de la $nombreCampo debe estar entre 0 y 100 años.</p>";
             return false;
         }
         return true;

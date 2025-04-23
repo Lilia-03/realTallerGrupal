@@ -5,7 +5,7 @@
     <title>Problema #5 - Clasificación por Edad</title>
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <!--Para icono-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -13,7 +13,6 @@
         <h1>Problema #5 - Clasificación por Edad</h1>
     </div>
 
-    <!-- Botón de regreso al menú -->
     <a href="index.php" class="boton-volver">
         <i class="fas fa-circle-arrow-left"></i> Volver al menú principal
     </a>
@@ -24,7 +23,7 @@
 
             <?php
                 for ($i = 1; $i <= 5; $i++) {
-                    echo "<input type='text' name='edad$i' required placeholder='Edad de la persona $i' class='input-numero'><br>";
+                    echo "<input type='number' name='edad$i' required placeholder='Edad de la persona $i' class='input-numero'><br>";
                 }
             ?>
 
@@ -35,38 +34,42 @@
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $valido = true;
             $clasificacion = [];
+            //Contadores por categoría
+            $contadores = ["niños" => 0, "adolescentes" => 0, "adultos" => 0, "adultos_mayores" => 0];
 
-                for ($i = 1; $i <= 5; $i++) {
-                    $edad = $_POST["edad$i"];
-
-                    if (!Validador::esVacio($edad, "Edad de la persona $i")) {
-                        $valido = false;
-                        continue;
-                    }
-
-                    if (!Validador::esNumero($edad, "Edad de la persona $i")) {
-                        $valido = false;
-                        continue;
-                    }
-
-                    if ($edad < 0) {
-                        echo "<p class='resultado-error'>Edad de la persona $i no válida. Debe ser un número mayor o igual a 0.</p>";
-                        $valido = false;
-                        continue;
-                    }
-
-                    // Clasificación
-                    if ($edad <= 12) {
-                        $clasificacion[] = "<span class='media-negro'>Persona $i: Niño (Edad: $edad)</span>";
-                    } elseif ($edad <= 17) {
-                        $clasificacion[] = "<span class='media-negro'>Persona $i: Adolescente (Edad: $edad)</span>";
-                    } elseif ($edad <= 64) {
-                        $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto (Edad: $edad)</span>";
-                    } else {
-                        $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto Mayor (Edad: $edad)</span>";
-                    }
+            for ($i = 1; $i <= 5; $i++) {
+                $edad = $_POST["edad$i"];
+                //por si el campo esta vacío
+                if (!Validador::esVacio($edad, "persona $i")) {
+                    $valido = false;
+                    continue;
+                }
+                //solo números
+                if (!Validador::esNumero($edad, "persona $i")) {
+                    $valido = false;
+                    continue;
+                }
+                //rango de números 0 a 100
+                if (!Validador::esEdadValida($edad, "persona $i")) {
+                    $valido = false;
+                    continue;
                 }
 
+                // Clasificación y conteo
+                if ($edad <= 12) {
+                    $clasificacion[] = "<span class='media-negro'>Persona $i: Niño (Edad: $edad)</span>";
+                    $contadores["niños"]++;
+                } elseif ($edad <= 17) {
+                    $clasificacion[] = "<span class='media-negro'>Persona $i: Adolescente (Edad: $edad)</span>";
+                    $contadores["adolescentes"]++;
+                } elseif ($edad <= 64) {
+                    $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto (Edad: $edad)</span>";
+                    $contadores["adultos"]++;
+                } else {
+                    $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto Mayor (Edad: $edad)</span>";
+                    $contadores["adultos_mayores"]++;
+                }
+            }
 
             if ($valido) {
                 echo "<div class='respuesta-suma'>";
@@ -74,16 +77,24 @@
                 foreach ($clasificacion as $clas) {
                     echo "<p>$clas</p>";
                 }
+
+                echo "<hr><h5><strong>Resumen:</strong></h5>";
+                echo "<div class='table-responsive'>";
+                echo "<table class='table table-bordered table-striped text-center'>";
+                echo "<thead class='table-dark'><tr><th>Niños</th><th>Adolescentes</th><th>Adultos</th><th>Adultos Mayores</th></tr></thead>";
+                echo "<tbody><tr>";
+                echo "<td>{$contadores['niños']}</td>";
+                echo "<td>{$contadores['adolescentes']}</td>";
+                echo "<td>{$contadores['adultos']}</td>";
+                echo "<td>{$contadores['adultos_mayores']}</td>";
+                echo "</tr></tbody></table></div>";
                 echo "</div>";
             }
         }
         ?>
     </div>
 
-    <?php
-            include_once("footer.php");
-        ?>
-    
+    <?php include_once("footer.php"); ?>
 
 </body>
 </html>
