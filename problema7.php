@@ -50,11 +50,13 @@ include_once("logica/logica_p7.php"); //clase con los procesos logicos
             }
         }
 
+        //Notas ingresadas
         if (isset($_POST["calcular"])) {
             $notas = $_POST["notas"];
             $validas = [];
             $errores = [];
-
+            
+            //validación
             foreach ($notas as $i => $nota) {
                 $num = trim($nota);
                 if (!Validador::esVacio($num, "Nota " . ($i + 1))) {
@@ -68,6 +70,7 @@ include_once("logica/logica_p7.php"); //clase con los procesos logicos
                 }
             }
 
+            //logica
             if (empty($errores)) {
                 $calc = new CalculadoraEstadistica($validas);
 
