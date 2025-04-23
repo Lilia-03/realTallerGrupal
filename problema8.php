@@ -1,6 +1,6 @@
 <!-- problema 8 -->
-<?php include_once("validaciones.php");  //para utilizar funciones de validación?>
-<?php include_once("logica\logica_p8.php");  //clase con los procesos logicos?>
+<?php include_once("logica/validaciones.php");  //para utilizar funciones de validación?>
+<?php include_once("logica/logica_p8.php");  //clase con los procesos logicos?>
 <html>
 <head>
     <title>Problema #8 - Estaciones del Año </title>

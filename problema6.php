@@ -1,6 +1,7 @@
 <!-- problema 6 -->
 <?php
-    require_once "validaciones.php"  ?>
+    <?php include_once("logica/validaciones.php");  //para utilizar funciones de validación
+    ?>
 <html>
 <head>
     <title>Problema #6 - Distribución de Presupuesto </title>

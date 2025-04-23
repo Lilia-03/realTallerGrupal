@@ -1,5 +1,5 @@
 <?php 
-include_once("validaciones.php"); 
+include_once("logica/validaciones.php");  //para utilizar funciones de validación
 include_once("logica/logica_p5.php");
 ?>
 <!-- problema 5 -->

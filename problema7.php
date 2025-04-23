@@ -1,4 +1,5 @@
-<?php include_once("validaciones.php"); ?>
+<?php include_once("logica/validaciones.php");  //para utilizar funciones de validación?>
+<?php include_once("logica/logica_p7.php"); ?>
 <!-- problema 7 -->
 <html>
 <head>
@@ -38,7 +39,7 @@
                 echo "<form action='' method='post' class='formulario-media'>";
                 echo "<h2>Ingrese las $cantidad notas</h2>";
                 for ($i = 1; $i <= $cantidad; $i++) {
-                    echo "<input type='text' name='notas[]' required placeholder='Nota $i' class='input-numero'><br>";
+                    echo "<input type='number' name='notas[]' required placeholder='Nota $i' class='input-numero'><br>";
                 }
                 echo "<input type='hidden' name='cantidad' value='$cantidad'>";
                 echo "<br><button type='submit' name='calcular' class='boton-accion'>Calcular estadísticas</button>";
@@ -66,31 +67,20 @@
             }
 
             if (empty($errores)) {
-                $count = count($validas); //Número total de notas por sumar
-                $suma = array_sum($validas); //Suma de todas las notas integradas
-                $media = $suma / $count; //Promedio de notas
-                $min = min($validas); //Nota mínima
-                $max = max($validas); //Nota máxima
-                
-                // Calcular la desviación estándar
-                $acc = 0;
-                foreach ($validas as $n) {
-                    $acc += pow($n - $media, 2);
-                }
-                $desv = sqrt($acc / $count);
+                $calc = new CalculadoraEstadistica($validas);
 
                 echo "<div class='respuesta-suma'>";
                 echo "<h4>Resultados Estadísticos</h4>";
-                echo "<p><strong>Cantidad de notas ingresadas:</strong><br> $count</p>";
+                echo "<p><strong>Cantidad de notas ingresadas:</strong><br> " . $calc->contar() . "</p>";
                 echo "<p><strong>Notas ingresadas:</strong><br>";
-                foreach ($validas as $idx => $n) {
+                foreach ($calc->getDatos() as $idx => $n) {
                     echo "Nota " . ($idx + 1) . ": " . number_format($n, 1) . "<br>";
                 }
                 echo "</p>";
-                echo "<p><strong>Promedio:</strong><br> " . number_format($media, 1) . "</p>";
-                echo "<p><strong>Desviación estándar:</strong><br> " . number_format($desv, 1) . "</p>";
-                echo "<p><strong>Nota mínima:</strong><br> " . number_format($min, 1) . "</p>";
-                echo "<p><strong>Nota máxima:</strong><br> " . number_format($max, 1) . "</p>";
+                echo "<p><strong>Promedio:</strong><br> " . number_format($calc->promedio(), 1) . "</p>";
+                echo "<p><strong>Desviación estándar:</strong><br> " . number_format($calc->desviacionEstandar(), 1) . "</p>";
+                echo "<p><strong>Nota mínima:</strong><br> " . number_format($calc->minimo(), 1) . "</p>";
+                echo "<p><strong>Nota máxima:</strong><br> " . number_format($calc->maximo(), 1) . "</p>";
                 echo "</div>";
             } else {
                 foreach ($errores as $error) {
@@ -102,10 +92,6 @@
 
     </div>
 
-    <?php
-            include_once("footer.php");
-        ?>
-    
-
+    <?php include_once("footer.php"); ?>
 </body>
 </html>
