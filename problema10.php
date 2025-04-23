@@ -26,7 +26,7 @@
                 <h2>Ingrese un Valor para n</h2>
                 <br>
                 Ingrese un número:
-                <input type="number" name="n" id="n" required placeholder="Ingrese un número entero positivo">
+                <input type="number" name="n" id="n" required placeholder="Ingrese un número entero positivo" >
                 <br> <br>
                 <br>
                 <button type="submit" name="Mostrar" id="mostrar" class="boton-accion" >Mostrar</button>
@@ -43,7 +43,7 @@
                     $valido = false;
                 if(!Validador::esNumero($n, "n"))
                     $valido = false;
-                if(!Validador::esPositivo($n, "n"))
+                if(!Validador::esMayoraCero($n, "n"))
                     $valido = false;
 
                 //para verificar lo del desbordamiento
