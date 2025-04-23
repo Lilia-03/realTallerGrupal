@@ -47,26 +47,38 @@
                     $mes = date("m", strtotime($fecha));
                     $dia = date("d", strtotime($fecha));
                     $respuesta = ""; //para almacenar la respuesta
-
+                    $imagen = ""; //para almacenar la imagen correspondiente a la estación
                     //determinar la estacion del año
                     if (($mes == 12 && $dia >= 21) || ($mes == 1) || ($mes == 2) || ($mes == 3 && $dia <= 20)) {
                         $respuesta = "La fecha " . $fecha . " corresponde a Verano.";
+                        $imagen = "gaticoVeraniego.jpg"; // Imagen de verano
                     } elseif (($mes == 3 && $dia >= 21) || ($mes == 4) || ($mes == 5) || ($mes == 6 && $dia <= 21)) {
                         $respuesta = "La fecha " . $fecha . " corresponde a Otoño.";
+                        $imagen = "gaticoOtoñal.jpg"; // Imagen de otoño
                     } elseif (($mes == 6 && $dia >= 22) || ($mes == 7) || ($mes == 8) || ($mes == 9 && $dia <= 22)) {
                         $respuesta = "La fecha " . $fecha . " corresponde a Invierno.";
+                        $imagen = "gaticoInvernal.jpg"; // Imagen de invierno
                     } elseif (($mes == 9 && $dia >= 23) || ($mes == 10) || ($mes == 11) || ($mes == 12 && $dia <= 20)) {
                         $respuesta = "La fecha " . $fecha . " corresponde a Primavera.";
+                        $imagen = "gaticosPrimaverales.jpg"; // Imagen de primavera
                     } else {
                         $respuesta = "No se pudo determinar la estación del año.";
                     }
 
                     //mostrar la respuest
 
-                    echo "<div class='respuesta-suma'>
+                    // Mostrar la respuesta y la imagen
+                       echo "<div class='respuesta-suma'>
+                        <h3>Estación para su Fecha:</h3>
+                         <p class='resultado-media'>" . $respuesta . "</p>"; 
+                        if ($imagen !== "") {
+                            echo "<img src='fotos/" . $imagen . "' alt='" . $respuesta . "' class='imagen-estacion'>"; // Correcta concatenación
+                            }
+                        echo "</div>"; 
+                   /* echo "<div class='respuesta-suma'>
                     <h3>Estación para su Fecha:</h3>
                     <p class='resultado-media'>" . $respuesta . "</p>
-                    </div>";
+                    </div>";*/
                 }
             }
         
@@ -81,5 +93,6 @@
             include_once("footer.php");
     ?>
     
+
 </body>
 </html>
