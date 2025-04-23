@@ -264,5 +264,7 @@ footer {
     color: green;
 }
 
-
-
+.imagen-estacion {
+    max-width: 200px; /* Ajusta el tamaño */
+    margin-top: 10px; /* Espaciado entre la respuesta y la imagen */
+}
