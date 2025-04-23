@@ -1,6 +1,10 @@
-<?php include_once("validaciones.php"); ?>
+<?php 
+include_once("validaciones.php"); 
+include_once("logica/logica_p5.php");
+?>
 <!-- problema 5 -->
 <html>
+
 <head>
     <title>Problema #5 - Clasificación por Edad</title>
     <link rel="stylesheet" href="css/estilos.css">
@@ -55,20 +59,14 @@
                     continue;
                 }
 
-                // Clasificación y conteo
-                if ($edad <= 12) {
-                    $clasificacion[] = "<span class='media-negro'>Persona $i: Niño (Edad: $edad)</span>";
-                    $contadores["niños"]++;
-                } elseif ($edad <= 17) {
-                    $clasificacion[] = "<span class='media-negro'>Persona $i: Adolescente (Edad: $edad)</span>";
-                    $contadores["adolescentes"]++;
-                } elseif ($edad <= 64) {
-                    $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto (Edad: $edad)</span>";
-                    $contadores["adultos"]++;
-                } else {
-                    $clasificacion[] = "<span class='media-negro'>Persona $i: Adulto Mayor (Edad: $edad)</span>";
-                    $contadores["adultos_mayores"]++;
-                }
+                // Clasificación
+                $resultado = ClasificadorEdad::clasificar($edad);
+                $categoria = $resultado["categoria"];
+                $etiqueta = $resultado["etiqueta"];
+
+            
+                $clasificacion[] = "<span class='media-negro'>Persona $i: $etiqueta (Edad: $edad)</span>";
+                $contadores[$categoria]++;
             }
 
             if ($valido) {
@@ -78,7 +76,7 @@
                     echo "<p>$clas</p>";
                 }
 
-                echo "<hr><h5><strong>Resumen:</strong></h5>";
+                echo "<hr><h5><strong>Recuento:</strong></h5>";
                 echo "<div class='table-responsive'>";
                 echo "<table class='table table-bordered table-striped text-center'>";
                 echo "<thead class='table-dark'><tr><th>Niños</th><th>Adolescentes</th><th>Adultos</th><th>Adultos Mayores</th></tr></thead>";
