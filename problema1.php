@@ -1,5 +1,6 @@
 <?php
 include_once("logica/validaciones.php");  //para utilizar funciones de validación
+include_once("logica/logica_p1.php"); // Clase que maneja el cálculo de la media
 ?>
 
 <!-- problema 1 -->
@@ -28,7 +29,7 @@ include_once("logica/validaciones.php");  //para utilizar funciones de validaci�
             <h2>Introduce 5 números positivos</h2>
             <?php //ciclo para los 5 campos
                 for ($i = 1; $i <= 5; $i++) {
-                    echo "<input type='text' name='num$i' required placeholder='Número $i' class='input-numero'><br>";
+                    echo "<input type='number' name='num$i' required placeholder='Número $i' class='input-numero'><br>";
                 }
             ?>
             <br>
@@ -40,7 +41,6 @@ include_once("logica/validaciones.php");  //para utilizar funciones de validaci�
         <!--Proceso en php para enviar el formulario-->
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $suma = 0; //almacena la suma total de los 5 números
             $valido = true; //indica si los números pasaron las validaciones
             $numeros = []; //arreglo vacío en el que se guardan los números válidos que ingresen los usuarios
 
@@ -56,15 +56,17 @@ include_once("logica/validaciones.php");  //para utilizar funciones de validaci�
                     continue;
                 }
 
-                $suma += $num;
                 $numeros[] = $num;
             }
 
             if ($valido) {
-                $media = round($suma / 5, 2); //redondea a 2 decimales
+                // Creamos la instancia de la clase CalculadoraMedia
+                $calculadora = new CalculadoraMedia($numeros);
+                $media = $calculadora->calcularMedia(); // Llamamos a calcularMedia()
+
                 echo "<div class='respuesta-suma'>";
                 echo "<h4><strong>Datos Ingresados</strong></h4>";
-                foreach ($numeros as $index => $valor) {
+                foreach ($calculadora->obtenerNumeros() as $index => $valor) {
                     $n = $index + 1;
                     echo "<p><strong>Número $n:</strong> $valor</p>";
                 }
@@ -75,11 +77,9 @@ include_once("logica/validaciones.php");  //para utilizar funciones de validaci�
         ?>
     </div>
 
-
-        <?php
-            include_once("footer.php");
-        ?>
-    
+    <?php
+        include_once("footer.php");
+    ?>
 
 </body>
 </html>

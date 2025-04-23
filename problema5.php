@@ -1,6 +1,6 @@
 <?php 
 include_once("logica/validaciones.php");  //para utilizar funciones de validación
-include_once("logica/logica_p5.php");
+include_once("logica/logica_p5.php"); //clase con los procesos logicos
 ?>
 <!-- problema 5 -->
 <html>
@@ -79,14 +79,25 @@ include_once("logica/logica_p5.php");
                 echo "<hr><h5><strong>Recuento:</strong></h5>";
                 echo "<div class='table-responsive'>";
                 echo "<table class='table table-bordered table-striped text-center'>";
-                echo "<thead class='table-dark'><tr><th>Niños</th><th>Adolescentes</th><th>Adultos</th><th>Adultos Mayores</th></tr></thead>";
+                echo "<thead class='table-dark'>
+                        <tr>
+                            <th>Niños</th>
+                            <th>Adolescentes</th>
+                            <th>Adultos</th>
+                            <th>Adultos Mayores</th>
+                        </tr>
+                    </thead>";
                 echo "<tbody><tr>";
-                echo "<td>{$contadores['niños']}</td>";
-                echo "<td>{$contadores['adolescentes']}</td>";
-                echo "<td>{$contadores['adultos']}</td>";
-                echo "<td>{$contadores['adultos_mayores']}</td>";
+
+                //iconos junto con los contadores
+                echo "<td><i class='fas fa-child'></i> {$contadores['niños']}</td>";
+                echo "<td><i class='fas fa-user-graduate'></i> {$contadores['adolescentes']}</td>";
+                echo "<td><i class='fas fa-user'></i> {$contadores['adultos']}</td>";
+                echo "<td><i class='fas fa-user-alt'></i> {$contadores['adultos_mayores']}</td>";
+
                 echo "</tr></tbody></table></div>";
                 echo "</div>";
+
             }
         }
         ?>

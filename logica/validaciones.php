@@ -34,6 +34,14 @@ class Validador {
         return true;
     }
 
+    public static function esNotaValida($valor, $nombreCampo) {
+        if ($valor < 0 || $valor > 100) {
+            echo "<p class='resultado-error'>La $nombreCampo debe estar entre 0 y 100.</p>";
+            return false;
+        }
+        return true;
+    }
+
     public static function esFecha($valor, $nombreCampo) {
         $fecha = DateTime::createFromFormat('Y-m-d', $valor);
         if (!$fecha || $fecha->format('Y-m-d') !== $valor) {

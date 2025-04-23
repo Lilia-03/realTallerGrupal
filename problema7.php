@@ -1,5 +1,7 @@
-<?php include_once("logica/validaciones.php");  //para utilizar funciones de validación?>
-<?php include_once("logica/logica_p7.php"); ?>
+<?php 
+include_once("logica/validaciones.php");  //para utilizar funciones de validación
+include_once("logica/logica_p7.php"); //clase con los procesos logicos
+?>
 <!-- problema 7 -->
 <html>
 <head>
@@ -39,7 +41,7 @@
                 echo "<form action='' method='post' class='formulario-media'>";
                 echo "<h2>Ingrese las $cantidad notas</h2>";
                 for ($i = 1; $i <= $cantidad; $i++) {
-                    echo "<input type='number' name='notas[]' required placeholder='Nota $i' class='input-numero'><br>";
+                    echo "<input type='number' name='notas[]' required placeholder='Nota $i' class='input-numero' min='0' max='100'><br>";
                 }
                 echo "<input type='hidden' name='cantidad' value='$cantidad'>";
                 echo "<br><button type='submit' name='calcular' class='boton-accion'>Calcular estadísticas</button>";
@@ -59,8 +61,8 @@
                     $errores[] = "La Nota " . ($i + 1) . " no puede estar vacía.";
                 } elseif (!Validador::esNumero($num, "Nota " . ($i + 1))) {
                     $errores[] = "La Nota " . ($i + 1) . " debe ser un número válido.";
-                } elseif ($num < 0) {
-                    $errores[] = "La Nota " . ($i + 1) . " no puede ser negativa.";
+                } elseif (!Validador::esNotaValida($num, "Nota " . ($i + 1))) {
+
                 } else {
                     $validas[] = (float)$num;
                 }
