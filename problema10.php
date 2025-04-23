@@ -1,5 +1,7 @@
 <!-- problema 10 -->
 <?php include_once("validaciones.php");  //para utilizar funciones de validación?>
+<?php include_once("logica\logica_p10.php");  //clase con los procesos logicos?>
+
 <html>
 <head>
     <title>Problema #8 - Primeros Multiplos de 4 </title>
@@ -50,30 +52,23 @@
                     $valido = false;
                 }
                 if($valido){
-                    //proceso luego de validaciones
-                    
+                    //llamada al metodo de la clase para obtener los multiplos de n
+                    $multiplo= MultiploDeCuatro::obtenerMultiplos($n);
+
                     echo "<div class='respuesta-suma'>";
                     echo "<h3>Primeros $n múltiplos de 4:</h3>";
             
-                    for ($i = 1; $i <= $n; $i++) {
-                        $multiplo = 4 * $i;
-                        echo "4 * $i = $multiplo<br>";
+                    foreach ($multiplo as $linea) {
+                        echo $linea . "<br>";
                     }
                     echo "</div>";
-                }       
-
-                    
+                }           
             }
-        
             ?>
-    
-       
+        </div>
     </div>
-
-    </div>
-
     <?php
-            include_once("footer.php");
+        include_once("footer.php");
      ?>
     
 
