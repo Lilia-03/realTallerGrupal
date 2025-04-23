@@ -83,16 +83,41 @@ body {
     box-shadow: 0 4px 8px rgba(11, 91, 103, 0.2);
 }
 
+/* Footer */
 footer {
+    position: relative;
     background-color: #0B5B67;
     border-top: 5px solid #FBDD8E;
     text-align: center;
-    padding: 2.5rem 1rem 3.5rem; /* más padding abajo */
+    padding: 2.5rem 1rem 3.5rem;
     color: white;
     font-weight: bold;
-    position: relative;
     z-index: 1;
-}
+    margin-top: auto;
+  }
+  
+  /* Gif */
+  footer .gif-circular {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;   
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  footer .gif-circular img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+
+
 
 
 /*Botón de regreso al menú principal*/
@@ -120,27 +145,6 @@ footer {
 .boton-volver i {
     margin-right: 8px;
 }
-
-
-/*gif*/
-.gif-circular {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.gif-circular img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 
 
 

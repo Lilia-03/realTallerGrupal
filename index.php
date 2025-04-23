@@ -26,17 +26,10 @@
             </ul>
         </nav>
     
-
-    <div class="gif-circular">
-        <img src="fotos/gatico.gif" alt="Mi gif animado" class="gif-decorativo">
-    </div>
-
-    <footer>
-        © 2025 Grupo: 1GS131 | Realizado por Liliana Coronado y Mónica Serrano <br>
-        <?php 
-        echo "Fecha: " . date("d")." / ".date("m"). " / ".date("Y");
-        ?>
-    </footer>
+        
 </div>
+        <?php
+            include_once("footer.php");
+        ?>
 </body>
 </html>
